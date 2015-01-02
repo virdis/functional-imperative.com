@@ -1,7 +1,7 @@
 package models
 
 import scala.slick.ast.ColumnOption.DBType
-import scala.slick.driver.MySQLDriver.simple._
+import scala.slick.driver.MySQLDriver.api._
 
 case class Label(id: Option[Int], name: String)
 

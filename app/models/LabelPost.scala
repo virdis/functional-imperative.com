@@ -1,6 +1,6 @@
 package models
 
-import scala.slick.driver.MySQLDriver.simple._
+import scala.slick.driver.MySQLDriver.api._
 import models.SHelper._
 
 case class LabelPost(postId: Int, labelId: Int)

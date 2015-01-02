@@ -1,7 +1,7 @@
 package models
 import database.db._
 
-import scala.slick.driver.MySQLDriver.simple._
+import scala.slick.driver.MySQLDriver.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration

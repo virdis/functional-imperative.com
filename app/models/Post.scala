@@ -2,7 +2,7 @@ package models
 
 import org.joda.time.DateTime
 import scala.slick.ast.ColumnOption.DBType
-import scala.slick.driver.MySQLDriver.simple._
+import scala.slick.driver.MySQLDriver.api._
 
 case class Post(id: Option[Int], title: String, content: String,
                 isPublished: Boolean, createdAt: DateTime, updatedAt: DateTime)

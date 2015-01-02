@@ -1,6 +1,6 @@
 package database
 
-import scala.slick.driver.MySQLDriver.simple._
+import scala.slick.driver.MySQLDriver.api._
 import com.zaxxer.hikari.{HikariDataSource, HikariConfig}
 import play.Logger
 
@@ -15,3 +15,4 @@ trait DBHelper {
     Database.forDataSource(ds)
  }
 }
+
