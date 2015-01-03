@@ -12,16 +12,12 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.slick.driver.MySQLDriver.api._
 
-object UserServiceImpl  {
+object UserServiceImpl extends UserService  {
 
-  def byId(id: Int) = {
-    posts.filter(p => p.isPublished && p.id === id).result
+  def byId(id: Int): Option[Post] = {
+    val query = posts.filter(p => p.isPublished && p.id === id)
+    Await.result(db.run(query.result), Duration.Inf).headOption
   }
 
-/* 
-def test = {
-    println("Post : "+Await.result(db.db.run(byId(1)), Duration.Inf).headOption)
-  }
-  * 
-  */
+
 }

@@ -12,4 +12,5 @@ package object models {
       dt => new Timestamp(dt.getMillis),
       ts => new DateTime(ts.getTime)
     )
+    
 }

@@ -14,5 +14,6 @@ object SHelper {
   val schema = posts.schema ++ labels.schema ++ labelPost.schema
 
   def createTables = db.withSession{ implicit  s => schema.create }
+  
 
 }
