@@ -1,3 +1,4 @@
+import controllers.Posts
 import play.api._
 
 object Global extends GlobalSettings {
@@ -12,5 +13,4 @@ object Global extends GlobalSettings {
     Logger.info("Application shutdown...")
     database.db.db.source.close()
   }
-  
 }
