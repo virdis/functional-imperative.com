@@ -8,4 +8,5 @@ import models.{Post}
 
 trait UserService {
   def byId(id: Int): Option[Post]
+  def all: List[Post]
 }
