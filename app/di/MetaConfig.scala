@@ -7,5 +7,6 @@ import services.{UserServiceImpl, UserService}
  */
 trait MetaConfig {
 
+  // declare Dependencies can be made more flexible
   val userService: UserService = UserServiceImpl
 }
