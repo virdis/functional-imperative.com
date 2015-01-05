@@ -8,5 +8,5 @@ import services.{PostServiceImpl, PostService}
 trait MetaConfig {
 
   // declare Dependencies can be made more flexible
-  val userService: PostService = PostServiceImpl
+  val postService: PostService = PostServiceImpl
 }
