@@ -10,10 +10,13 @@ object SHelper {
   val posts = TableQuery[Posts]
   val labels = TableQuery[Lables]
   val labelPost = TableQuery[LabelPosts]
+  val users = TableQuery[Users]
 
-  val schema = posts.schema ++ labels.schema ++ labelPost.schema
+  val schema = posts.schema ++ labels.schema ++ labelPost.schema ++ users.schema
 
   def createTables = db.withSession{ implicit  s => schema.create }
+
+  def dropTables = db.withSession{ implicit s => schema.drop }
   
 
 }

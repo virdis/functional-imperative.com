@@ -1,6 +1,6 @@
 package di
 
-import services.{UserServiceImpl, UserService}
+import services.{PostServiceImpl, PostService}
 
 /**
  * Created by svirdi on 1/4/15.
@@ -8,5 +8,5 @@ import services.{UserServiceImpl, UserService}
 trait MetaConfig {
 
   // declare Dependencies can be made more flexible
-  val userService: UserService = UserServiceImpl
+  val userService: PostService = PostServiceImpl
 }

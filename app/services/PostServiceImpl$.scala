@@ -14,7 +14,7 @@ import scala.slick.driver.MySQLDriver.api._
 import scalaz._
 import scalaz.syntax.either._
 
-object UserServiceImpl extends UserService  {
+object PostServiceImpl extends PostService  {
 
   def byId(id: Int): Option[Post] = {
     val query = posts.filter(p => p.isPublished && p.id === id)

@@ -5,14 +5,14 @@ import play.api._
 import play.api.mvc._
 import scalaz._
 import Scalaz._
-import services.{UserService, UserServiceImpl}
+import services.{PostService, PostServiceImpl}
 import services.ServicesHelper.{CollectionResult, SingleResult}
 import models.Post
 
 object Posts extends Controller with MetaConfig {
 
   def byId(id: Int) = Action { request =>
-    val r = Kleisli[SingleResult, UserService, Post] { uService =>
+    val r = Kleisli[SingleResult, PostService, Post] { uService =>
       val res = for {
         p <- uService.byId(id) |> SingleResult.createFromOption(s"Cannot find post for given id : ${id}")
       } yield p
@@ -23,7 +23,7 @@ object Posts extends Controller with MetaConfig {
   }
 
   def allActive = Action { request =>
-    val r = Kleisli[CollectionResult, UserService, Post]{
+    val r = Kleisli[CollectionResult, PostService, Post]{
       _.all |> CollectionResult.createFromList("Collection is Empty")
     }
     r.run(userService).fold(e => Ok(views.html.index(e)), posts => Ok(views.html.posts.posts(posts)))

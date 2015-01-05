@@ -6,7 +6,7 @@ package services
 
 import models.{Post}
 
-trait UserService {
+trait PostService {
   def byId(id: Int): Option[Post]
   def all: List[Post]
 }
