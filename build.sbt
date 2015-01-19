@@ -11,5 +11,9 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % "3.0.0-M1",
   "org.slf4j" % "slf4j-nop" % "1.6.4",
   "mysql" % "mysql-connector-java" % "5.1.34",
-   "org.scalaz" %% "scalaz-core" % "7.1.0"
+  "org.scalaz" %% "scalaz-core" % "7.1.0",
+  "org.webjars" % "bootstrap" % "3.3.1",
+  "org.webjars" % "jquery" % "2.1.3",
+  "org.webjars" % "less" % "2.1.0",
+  filters
 )

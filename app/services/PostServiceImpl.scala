@@ -26,5 +26,8 @@ object PostServiceImpl extends PostService  {
     Await.result(db.run(query.result), Duration.Inf).toList
   }
 
+  def insert(post: Post) = {
+    Await.result(db.run((posts += post.copy(isPublished = Some(false)))), Duration.Inf)
+  }
 
 }

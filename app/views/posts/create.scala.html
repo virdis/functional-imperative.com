@@ -1,0 +1,12 @@
+@import helper._
+@(postform: Form[Post])(implicit request: play.api.mvc.RequestHeader)
+
+@for(err <- postform.errors){
+    <li>@err.message</li>
+}
+@form(CSRF(routes.Posts.create())){
+    <input type="hidden" value="@postform("id").value" name="id"/>
+    @inputText(postform("title"))
+    @textarea(postform("content"))
+    <input type="submit"/>
+}

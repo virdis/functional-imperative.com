@@ -5,7 +5,7 @@ import scala.slick.ast.ColumnOption.DBType
 import scala.slick.driver.MySQLDriver.api._
 
 case class Post(id: Option[Int], title: String, content: String,
-                isPublished: Boolean, createdAt: DateTime, updatedAt: DateTime)
+                isPublished: Option[Boolean], createdAt: Option[DateTime], updatedAt: Option[DateTime])
 
 class Posts(tag: Tag) extends Table[Post](tag, "posts") {
   def id = column[Int]("postId", O.PrimaryKey, O.AutoInc, O.NotNull)
@@ -15,5 +15,5 @@ class Posts(tag: Tag) extends Table[Post](tag, "posts") {
   def createdAt = column[DateTime]("createdAt")
   def updatedAt = column[DateTime]("updatedAt")
 
-  def * = (id.?, title, content, isPublished, createdAt, updatedAt) <> (Post.tupled, Post.unapply)
+  def * = (id.?, title, content, isPublished.?, createdAt.?, updatedAt.?) <> (Post.tupled, Post.unapply)
 }

@@ -1,5 +1,8 @@
 package services
 
+import util.Utils
+
+import scala.concurrent.Future
 import scalaz._
 import Scalaz._
 import play.api.mvc.Result

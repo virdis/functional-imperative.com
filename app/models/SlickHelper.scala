@@ -14,9 +14,15 @@ object SHelper {
 
   val schema = posts.schema ++ labels.schema ++ labelPost.schema ++ users.schema
 
-  def createTables = db.withSession{ implicit  s => schema.create }
+  def createTables = Await.result(db.run(Action.seq(
+    schema.create
+  )), Duration.Inf)
+    //db.withSession{ implicit  s => schema.create }
 
-  def dropTables = db.withSession{ implicit s => schema.drop }
+  def dropTables = Await.result(db.run(Action.seq(
+    schema.drop
+  )), Duration.Inf)
+    //db.withSession{ implicit s => schema.drop }
   
 
 }
