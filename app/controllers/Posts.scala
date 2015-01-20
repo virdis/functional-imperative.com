@@ -74,7 +74,7 @@ object Posts extends Controller with MetaConfig {
     }
 
 
-  def all() = Action{ implicit request => Ok }
+  def mainBlog = Action{ implicit request => Ok(views.html.blogindex()) }
 
 
 }
