@@ -45,10 +45,16 @@ object Posts extends Controller with MetaConfig {
     )(Post.apply)(Post.unapply)
   )
 
-  def edit = Action { request =>
+  def edit(id: Int) = Action { request =>
+    request.session.get("admin").map(s => {
+      if (s == "success")
+        PostServiceImpl.byId(id).
+          map{ p => Ok(views.html.posts.create(pForm.fill(p))(request)) }
+          .getOrElse(NotFound)
+      else
+        Forbidden
+    }).getOrElse(Forbidden)
 
-
-    Ok
   }
 
   def postForm() = Action { request =>
@@ -63,14 +69,19 @@ object Posts extends Controller with MetaConfig {
 
   def create() =
     Action { implicit  request =>
-      pForm.bindFromRequest.fold(
-        e => BadRequest(views.html.posts.create(e)),
-        vData => {
-          Logger.info("VData "+vData)
-          PostServiceImpl.insert(vData)
-          Ok
-        }
-      )
+      request.session.get("admin").map(s => {
+        if (s == "success")
+          pForm.bindFromRequest.fold(
+            e => BadRequest(views.html.posts.create(e)),
+            vData => {
+              Logger.info("VData "+vData)
+              PostServiceImpl.insert(vData)
+              Ok
+            }
+          )
+        else
+          Forbidden
+      }).getOrElse(Forbidden)
     }
 
 

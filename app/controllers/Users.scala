@@ -24,7 +24,7 @@ object Users extends Controller {
 
   def login =
     Action { request =>
-      Ok(views.html.users.login(loginForm)(request)).withNewSession
+      Ok(views.html.users.login(loginForm)(request))
     }
 
 
@@ -43,7 +43,4 @@ object Users extends Controller {
   }
 
 
-  def test = Action { implicit request =>
-    Ok(views.html.users.test(request.session))
-  }
 }

@@ -20,3 +20,5 @@ GET  /svirdi/posts/all              controllers.Posts.allActive
 GET  /svirdi/posts/:id              controllers.Posts.byId(id: Int)
 
 GET /svirdi/mainBlog                controllers.Posts.mainBlog()
+
+PUT /svirdi/posts/:id               controllers.Posts.edit(id: Int)
