@@ -1,0 +1,10 @@
+@(ids: List[(Int, String)])
+@import helper._
+
+<div>
+    <ul>
+        @for(id <- ids){
+            <li><a href="/svirdi/admin/posts/@id._1">@id._1 - @id._2</a></li>
+        }
+    </ul>
+</div>

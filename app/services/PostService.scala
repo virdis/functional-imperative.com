@@ -7,6 +7,8 @@ package services
 import models.{Post}
 
 trait PostService {
-  def byId(id: Int): Option[Post]
-  def all: List[Post]
+  def byId(id: Int, published: Boolean = true): Option[Post]
+  def all: List[(Int, String)]
+  def allActive: List[Post]
+  def update(p: Post)
 }

@@ -26,11 +26,23 @@ object Posts extends Controller with MetaConfig {
   }
 
   def allActive = Action { request =>
-    val kf = kleisli[CollectionResult, PostService, Post](_.all |> CollectionResult.createFromList("Collection is Empty"))
+    val kf = kleisli[CollectionResult, PostService, Post](_.allActive |> CollectionResult.createFromList("Collection is Empty"))
     val posts = for {
       res <- kf.run
     } yield res.fold(e => Ok(views.html.index(e)), posts => Ok(views.html.posts.posts(posts)))
     posts(postService)
+  }
+
+  def all = Action { implicit request =>
+    if (checkAdmin) {
+      val kf = kleisli[CollectionResult, PostService, (Int, String)](_.all |> CollectionResult.createFromList("Collection is Empty"))
+      val allposts = for {
+        res <- kf.run
+      } yield res.fold(e => Ok(views.html.index(e)), ids => Ok(views.html.posts.dashboard(ids)))
+      allposts(postService)
+    }
+    else
+      Forbidden
   }
 
 
@@ -45,45 +57,57 @@ object Posts extends Controller with MetaConfig {
     )(Post.apply)(Post.unapply)
   )
 
-  def edit(id: Int) = Action { request =>
-    request.session.get("admin").map(s => {
-      if (s == "success")
-        PostServiceImpl.byId(id).
-          map{ p => Ok(views.html.posts.create(pForm.fill(p))(request)) }
-          .getOrElse(NotFound)
-      else
-        Forbidden
-    }).getOrElse(Forbidden)
+  def editPost(id: Int) = Action { implicit request =>
+    if (checkAdmin) {
+      val kf = kleisli[SingleResult, PostService, Post](_.byId(id, false) |> SingleResult.createFromOption("Post not found"))
+      val post = for {p <- kf.run} yield p.fold(e => Forbidden, p => Ok(views.html.posts.editPost(pForm.fill(p))(request)))
+      post(postService).getOrElse(Forbidden)
+    }
+    else
+      Forbidden
+
 
   }
 
-  def postForm() = Action { request =>
-    request.session.get("admin").map(s => {
-      if (s == "success")
-        Ok(views.html.posts.create(pForm)(request))
-      else
-        Redirect("posts/all")
-    }).getOrElse(Redirect("posts/all"))
+  def updatePost = Action { implicit request =>
+    if (checkAdmin)
+      pForm.bindFromRequest.fold(
+      e => BadRequest(views.html.posts.editPost(e)),
+      p => {
+        PostServiceImpl.update(p)
+        Ok
+      })
+    else
+      Forbidden
+  }
+
+  def postForm() = Action { implicit request =>
+    if (checkAdmin)
+      Ok(views.html.posts.create(pForm)(request))
+    else
+      Redirect("posts/all")
+
 
   }
 
   def create() =
     Action { implicit  request =>
-      request.session.get("admin").map(s => {
-        if (s == "success")
-          pForm.bindFromRequest.fold(
-            e => BadRequest(views.html.posts.create(e)),
-            vData => {
-              Logger.info("VData "+vData)
-              PostServiceImpl.insert(vData)
-              Ok
-            }
-          )
-        else
-          Forbidden
-      }).getOrElse(Forbidden)
+      if (checkAdmin)
+        pForm.bindFromRequest.fold(
+          e => BadRequest(views.html.posts.create(e)),
+          p => {
+            PostServiceImpl.insert(p)
+            Ok
+          })
+      else
+        Forbidden
+
     }
 
+
+  def checkAdmin(implicit request: Request[_]): Boolean = {
+    if(request.session.get("admin").getOrElse("") == "success") true else false
+  }
 
   def mainBlog = Action{ implicit request => Ok(views.html.blogindex()) }
 
