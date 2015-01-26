@@ -7,6 +7,8 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET     /webjars/*file                    controllers.WebJarAssets.at(file)
 
+GET  /svirdi                        controllers.Posts.allActive
+
 GET  /svirdi/users/login            controllers.Users.login()
 
 POST /svirdi/authenticate           controllers.Users.authenticate()
@@ -19,10 +21,10 @@ GET  /svirdi/posts/all              controllers.Posts.allActive
 
 GET  /svirdi/posts/:id              controllers.Posts.byId(id: Int)
 
-GET /svirdi/mainBlog                controllers.Posts.mainBlog()
-
 GET /svirdi/admin/all               controllers.Posts.all
 
 GET /svirdi/admin/posts/:id         controllers.Posts.editPost(id: Int)
 
-POST /svirdi/admin/update            controllers.Posts.updatePost()
+POST /svirdi/admin/update           controllers.Posts.updatePost()
+
+GET /svirdi/about                   controllers.Posts.about

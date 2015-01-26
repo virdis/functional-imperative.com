@@ -29,7 +29,7 @@ object Posts extends Controller with MetaConfig {
     val kf = kleisli[CollectionResult, PostService, Post](_.allActive |> CollectionResult.createFromList("Collection is Empty"))
     val posts = for {
       res <- kf.run
-    } yield res.fold(e => Ok(views.html.index(e)), posts => Ok(views.html.posts.posts(posts)))
+    } yield res.fold(e => Ok(views.html.index(e)), posts => Ok(views.html.allActive(posts)))
     posts(postService)
   }
 
@@ -105,11 +105,13 @@ object Posts extends Controller with MetaConfig {
     }
 
 
+  def about = Action { request =>
+    Ok(views.html.about(List()))
+  }
+
+
   def checkAdmin(implicit request: Request[_]): Boolean = {
     if(request.session.get("admin").getOrElse("") == "success") true else false
   }
-
-  def mainBlog = Action{ implicit request => Ok(views.html.blogindex()) }
-
 
 }

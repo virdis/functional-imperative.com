@@ -6,7 +6,7 @@ package services
 
 import database.db._
 
-import models.{PostLenses, Posts, Post}
+import models.{PostHelper, Posts, Post}
 import models.SHelper._
 import org.joda.time.DateTime
 import scala.concurrent.Await
@@ -14,7 +14,7 @@ import scala.concurrent.duration.Duration
 import scala.slick.driver.MySQLDriver.api._
 import scalaz._
 import scalaz.syntax.either._
-import PostLenses._
+import PostHelper._
 import models.dateTime
 
 object PostServiceImpl extends PostService  {

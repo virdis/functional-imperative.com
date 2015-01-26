@@ -1,6 +1,7 @@
 package models
 
 import org.joda.time.DateTime
+import org.joda.time.format.{DateTimeFormatter, DateTimeFormat}
 import scala.slick.ast.ColumnOption.DBType
 import scala.slick.driver.MySQLDriver.api._
 
@@ -18,7 +19,7 @@ class Posts(tag: Tag) extends Table[Post](tag, "posts") {
   def * = (id.?, title, content, isPublished.?, createdAt.?, updatedAt.?) <> (Post.tupled, Post.unapply)
 }
 
-object PostLenses {
+object PostHelper {
   import scalaz._
   import Lens._
   /*
@@ -37,4 +38,9 @@ object PostLenses {
 
   val contentLens: Lens[Post, String] = Lens.lensu((p: Post, s: String) => p.copy(content = s), _.content)
 
+  def formatDate(dt: Option[DateTime]): String = {
+    val fmt = DateTimeFormat.forPattern("MMMM d, Y");
+    dt.map(fmt.print(_)).getOrElse("")
+
+  }
 }
