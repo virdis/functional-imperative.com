@@ -1,5 +1,4 @@
-@(posts: List[Post] = List())(upperContent: Html)
-@import models.PostHelper.formatDate
+@(posts: List[Post] = List())(upperContent: Html)(mainContent: Html)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog</title>
+    <title>sandeep virdi - Blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
@@ -78,9 +77,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    @upperContent
-                </div>
+                @upperContent
             </div>
         </div>
     </div>
@@ -90,21 +87,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            @for(p <- posts){
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Man must explore, and this is exploration at its greatest
-                        </h2>
-                        <h3 class="post-subtitle">
-                            Problems look mighty small from 150 miles up
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="svirdi/about">svirdi</a> on @formatDate(p.createdAt)</p>
-                </div>
+                @mainContent
                 <hr>
-            }
-
             <!-- Pager -->
             @if(posts.nonEmpty) {
                 <ul class="pager">

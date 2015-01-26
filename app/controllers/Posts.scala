@@ -21,7 +21,7 @@ object Posts extends Controller with MetaConfig {
     val kf = kleisli[SingleResult, PostService, Post]( _.byId(id) |> SingleResult.createFromOption(s"Cannot find post for given id : ${id}"))
     val post = for {
       res <- kf.run
-    } yield res.fold(e => Ok(views.html.index(e)), post => Ok(views.html.posts.post(post)))
+    } yield res.fold(e => Ok(views.html.index(e)), post => Ok(views.html.posts.post(post.point[List])))
     post(postService).getOrElse(NotFound)
   }
 
@@ -74,7 +74,7 @@ object Posts extends Controller with MetaConfig {
       pForm.bindFromRequest.fold(
       e => BadRequest(views.html.posts.editPost(e)),
       p => {
-        PostServiceImpl.update(p)
+        postService.update(p)
         Ok
       })
     else
