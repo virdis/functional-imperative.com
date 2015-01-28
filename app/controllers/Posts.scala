@@ -50,6 +50,7 @@ object Posts extends Controller with MetaConfig {
     mapping(
       "id" ->   optional(number),
       "title" -> nonEmptyText,
+      "description" -> nonEmptyText,
       "content" -> nonEmptyText,
       "isPublished" -> optional(boolean),
       "createdAt" -> optional(jodaDate),

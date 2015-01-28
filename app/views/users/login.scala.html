@@ -3,8 +3,6 @@
 
 @(loginForm: Form[LoginData])(implicit request: play.api.mvc.RequestHeader)
 
-@loginForm.hasErrors
-
 @helper.form(CSRF(routes.Users.authenticate())){
     @helper.inputText(loginForm("username"))
     @helper.inputPassword(loginForm("password"))

@@ -17,12 +17,11 @@ object SHelper {
   def createTables = Await.result(db.run(Action.seq(
     schema.create
   )), Duration.Inf)
-    //db.withSession{ implicit  s => schema.create }
 
   def dropTables = Await.result(db.run(Action.seq(
     schema.drop
   )), Duration.Inf)
-    //db.withSession{ implicit s => schema.drop }
+
   
 
 }

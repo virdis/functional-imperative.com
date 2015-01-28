@@ -6,7 +6,8 @@
 }
 @form(CSRF(routes.Posts.updatePost())){
     <input type="hidden" value="@postform("id").value" name="id"/>
-    @inputText(postform("title"))
-    @textarea(postform("content"))
+    @inputText(postform("title"), 'size -> 150)
+    @inputText(postform("description"), 'size -> 250)
+    @textarea(postform("content"), 'cols -> 150, 'rows -> 80)
     <input type="submit"/>
 }
