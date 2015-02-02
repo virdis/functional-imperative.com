@@ -7,7 +7,8 @@ object Global extends WithFilters(CSRFFilter()) with GlobalSettings {
 
   override def beforeStart(app: Application) = {
     Logger.info("Before Application starts")
-    try { database.db.db.source.close() } catch { case e:Exception => Logger.info(" *** === *** "+e.printStackTrace()) }
+    try { database.db.db.source.close() }
+    catch { case e:Exception => Logger.info(" *** === *** "+e.printStackTrace()) }
   }
 
   override def onStart(app: Application) {

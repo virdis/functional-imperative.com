@@ -75,7 +75,8 @@ object Posts extends Controller with MetaConfig {
       pForm.bindFromRequest.fold(
       e => BadRequest(views.html.posts.editPost(e)),
       p => {
-        postService.update(p)
+        val up: Reader[PostService, Unit] = Reader(_.update(p))
+        up.run(postService)
         Ok
       })
     else
@@ -97,7 +98,8 @@ object Posts extends Controller with MetaConfig {
         pForm.bindFromRequest.fold(
           e => BadRequest(views.html.posts.create(e)),
           p => {
-            PostServiceImpl.insert(p)
+            val ip: Reader[PostService, Unit] = Reader(_.insert(p))
+            ip.run(postService)
             Ok
           })
       else

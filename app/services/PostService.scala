@@ -11,4 +11,5 @@ trait PostService {
   def all: List[(Int, String)]
   def allActive: List[Post]
   def update(p: Post)
+  def insert(p: Post)
 }
