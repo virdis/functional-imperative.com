@@ -2,6 +2,7 @@ logs
 project/project
 conf/hikari.properties
 conf/user.properties
+conf/production.conf
 project/target
 target
 tmp
