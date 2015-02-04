@@ -112,6 +112,10 @@ object Posts extends Controller with MetaConfig {
     Ok(views.html.about(List()))
   }
 
+  def slash = Action { request => 
+    Redirect("/svirdi")
+  }
+
 
   def checkAdmin(implicit request: Request[_]): Boolean = {
     if(request.session.get("admin").getOrElse("") == "success") true else false

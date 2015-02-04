@@ -9,6 +9,8 @@ GET     /webjars/*file                    controllers.WebJarAssets.at(file)
 
 GET  /svirdi                        controllers.Posts.allActive
 
+GET  /svirdi/                       controllers.Posts.slash()
+
 GET  /svirdi/users/login            controllers.Users.login()
 
 POST /svirdi/authenticate           controllers.Users.authenticate()
