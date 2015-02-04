@@ -1,4 +1,4 @@
-newBlog
+sandeep virdi's Blog ( source )
 =======
 
-Functional Programming 
+This blog is build using Scala, Play framework, Scalaz and Slick.
