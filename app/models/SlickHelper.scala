@@ -8,11 +8,11 @@ import scala.concurrent.duration.Duration
 
 object SHelper {
   val posts = TableQuery[Posts]
-  val labels = TableQuery[Lables]
-  val labelPost = TableQuery[LabelPosts]
+  val tags = TableQuery[Tagz]
+  val tagPost = TableQuery[TagsPosts]
   val users = TableQuery[Users]
 
-  val schema = posts.schema ++ labels.schema ++ labelPost.schema ++ users.schema
+  val schema = posts.schema ++ tags.schema ++ tagPost.schema ++ users.schema
 
   def createTables = Await.result(db.run(Action.seq(
     schema.create

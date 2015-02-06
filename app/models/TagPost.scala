@@ -3,20 +3,20 @@ package models
 import scala.slick.driver.MySQLDriver.api._
 import models.SHelper._
 
-case class LabelPost(postId: Int, labelId: Int)
+case class TagPost(postId: Int, taglId: Int)
 
-class LabelPosts(tag: Tag) extends Table[LabelPost](tag, "label_post") {
+class TagsPosts(tag: Tag) extends Table[TagPost](tag, "tag_post") {
   def postId = column[Int]("postId")
-  def labelId = column[Int]("labelId")
+  def tagId = column[Int]("tagId")
 
-  def * = (postId, labelId) <> (LabelPost.tupled, LabelPost.unapply)
+  def * = (postId, tagId) <> (TagPost.tupled, TagPost.unapply)
 
   def post = foreignKey("post_fk", postId, posts)(_.id, onUpdate=ForeignKeyAction.Restrict,
                                                   onDelete=ForeignKeyAction.Cascade)
 
-  def label = foreignKey("label_fk", labelId, labels)(_.id, onUpdate=ForeignKeyAction.Restrict,
+  def label = foreignKey("tag_fk", tagId, tags)(_.id, onUpdate=ForeignKeyAction.Restrict,
                                                       onDelete=ForeignKeyAction.Cascade)
 
-  def idx = index("label_post_idx", (postId, labelId), unique = true)
+  def idx = index("tag_post_idx", (postId, tagId), unique = true)
 
 }
