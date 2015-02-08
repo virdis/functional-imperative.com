@@ -7,7 +7,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET     /webjars/*file                    controllers.WebJarAssets.at(file)
 
-GET  /svirdi                        controllers.Posts.allActive
+GET  /svirdi                        controllers.Posts.allActive(page: Int ?= 1)
 
 GET  /svirdi/                       controllers.Posts.slash()
 
@@ -19,7 +19,7 @@ GET  /svirdi/posts                  controllers.Posts.postForm()
 
 POST /svirdi/posts                  controllers.Posts.create()
 
-GET  /svirdi/posts/all              controllers.Posts.allActive
+#GET  /svirdi/posts/all              controllers.Posts.allActive(page: Int = 1)
 
 GET  /svirdi/posts/:id              controllers.Posts.byId(id: Int)
 

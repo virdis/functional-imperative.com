@@ -25,8 +25,8 @@ object Posts extends Controller with MetaConfig {
     post(postService).getOrElse(NotFound)
   }
 
-  def allActive = Action { request =>
-    val kf = kleisli[CollectionResult, PostService, Post](_.allActive |> CollectionResult.createFromList("Collection is Empty"))
+  def allActive(pageNumber: Int) = Action { request =>
+    val kf = kleisli[CollectionResult, PostService, Post](_.allActive(pageNumber) |> CollectionResult.createFromList("Collection is Empty"))
     val posts = for {
       res <- kf.run
     } yield res.fold(e => Ok(views.html.index(e)), posts => Ok(views.html.allActive(posts)))

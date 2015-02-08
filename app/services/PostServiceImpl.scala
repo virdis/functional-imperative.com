@@ -32,8 +32,14 @@ object PostServiceImpl extends PostService  {
     Await.result(db.run(query.result), Duration.Inf).toList
   }
 
-  def allActive: List[Post] = {
-    val query = posts.filter(p => p.isPublished).sortBy(_.createdAt.desc)
+  def allActive(pageNumber: Int) : List[Post] = {
+    val query = if (pageNumber > 1) {
+      import play.api.Logger
+      Logger.info("Page Number "+pageNumber)
+      posts.filter(p => p.isPublished).sortBy(_.createdAt.desc).drop( (pageNumber - 1) * ARTICLES_PER_PAGE ).take( ARTICLES_PER_PAGE )
+    } else { 
+      posts.filter(p => p.isPublished).sortBy(_.createdAt.desc).take( ARTICLES_PER_PAGE )
+    }
     Await.result(db.run(query.result), Duration.Inf).toList
   }
 
