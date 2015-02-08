@@ -30,3 +30,5 @@ GET /svirdi/admin/posts/:id         controllers.Posts.editPost(id: Int)
 POST /svirdi/admin/update           controllers.Posts.updatePost()
 
 GET /svirdi/about                   controllers.Posts.about
+
+GET /svirdi/logout                  controllers.Posts.logout

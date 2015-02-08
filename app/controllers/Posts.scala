@@ -116,6 +116,10 @@ object Posts extends Controller with MetaConfig {
     Redirect("/svirdi")
   }
 
+  def logout = Action { request => 
+    Ok("Bye").withNewSession
+  }
+
 
   def checkAdmin(implicit request: Request[_]): Boolean = {
     if(request.session.get("admin").getOrElse("") == "success") true else false
