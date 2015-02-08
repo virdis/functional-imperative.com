@@ -33,7 +33,7 @@ object PostServiceImpl extends PostService  {
   }
 
   def allActive: List[Post] = {
-    val query = posts.filter(p => p.isPublished)
+    val query = posts.filter(p => p.isPublished).sortBy(_.createdAt.desc)
     Await.result(db.run(query.result), Duration.Inf).toList
   }
 

@@ -1,6 +1,7 @@
 @(posts: List[Post])
 @import models.PostHelper.formatDate
-@blogindex(posts){
+@import models.PostHelper.getRandomHeaderPic
+@blogindex(posts, "wheat.jpg"){
     <div class="site-heading">
         <h1>sandeep virdi</h1>
         <hr class="small">

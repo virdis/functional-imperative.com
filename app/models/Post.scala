@@ -46,4 +46,9 @@ object PostHelper {
     dt.map(fmt.print(_)).getOrElse("")
 
   }
+
+  val random = new scala.util.Random( System.currentTimeMillis )
+  val pics = List("bikes_header.jpg", "dungar.jpg", "dungar2.jpg", "fall_colors.jpg", "jiufen.jpg", "muir_woods.jpg", "queenshead.jpg", "rockycoast.jpg", "scenicpoint.jpg")
+  def getRandomHeaderPic = random.shuffle( pics ).head
+
 }
