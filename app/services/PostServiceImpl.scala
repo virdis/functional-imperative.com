@@ -16,6 +16,7 @@ import scalaz._
 import scalaz.syntax.either._
 import PostHelper._
 import models.dateTime
+import services.PostService._
 
 object PostServiceImpl extends PostService  {
 
