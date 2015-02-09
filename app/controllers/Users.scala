@@ -37,7 +37,7 @@ object Users extends Controller {
               if (optUser.isDefined)
                 Redirect("posts").withSession(request.session + ("admin" -> "success"))
               else
-                Redirect("posts/all") }.getOrElse(Redirect("posts/all"))
+                Redirect("/svirdi") }.getOrElse(Redirect("/svirdi"))
           })
 
   }
