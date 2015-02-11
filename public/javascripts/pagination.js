@@ -1,6 +1,10 @@
 $( document ).ready(function() {
     console.log( "ready!" );
     console.log( "url" +window.location.href ); 
+    if (window.location.href.indexOf("/posts/") > -1) {
+        console.log("");
+       $( ".pager" ).remove()
+    }
     var pageno, num;
     pageno = window.location.href.split( "?" )[1]
     if ( pageno !== undefined ){
