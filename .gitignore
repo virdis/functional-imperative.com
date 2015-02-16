@@ -18,3 +18,4 @@ dist
 /.settings
 .cache
 bin/
+app/test/
