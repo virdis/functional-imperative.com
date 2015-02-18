@@ -3,9 +3,9 @@
 # ~~~~
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /svirdi/assets/*file               controllers.Assets.at(path="/public", file)
+GET     /svirdi/assets/*file         controllers.Assets.at(path="/public", file)
 
-GET     /svirdi/webjars/*file                    controllers.WebJarAssets.at(file)
+GET     /svirdi/webjars/*file       controllers.WebJarAssets.at(file)
 
 GET  /svirdi                        controllers.Posts.allActive(page: Int ?= 1)
 

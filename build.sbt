@@ -23,3 +23,4 @@ libraryDependencies ~= { _.filterNot(m => m.organization == "com.typesafe.play" 
 includeFilter in (Assets, LessKeys.less) := "*.less"
 
 excludeFilter in (Assets, LessKeys.less) := "_*.less"
+

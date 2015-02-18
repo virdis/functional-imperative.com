@@ -10,6 +10,6 @@ object Utils {
   val userName = if (Play.current.mode == play.api.Mode.Prod)
     Source.fromFile("/home/sandeep/user.properties") getLines() find(_.startsWith("username")) map(_.replace("username=",""))
   else
-      Source.fromFile("conf/user.properties") getLines() find(_.startsWith("username")) map(_.replace("username=",""))
+    Source.fromFile("conf/user.properties") getLines() find(_.startsWith("username")) map(_.replace("username=",""))
 
 }
