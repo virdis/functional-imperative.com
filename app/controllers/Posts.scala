@@ -88,8 +88,6 @@ object Posts extends Controller with MetaConfig {
       Ok(views.html.posts.create(pForm)(request))
     else
       Redirect("posts/all")
-
-
   }
 
   def create() =

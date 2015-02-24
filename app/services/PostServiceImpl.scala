@@ -9,6 +9,7 @@ import database.db._
 import models.{PostHelper, Posts, Post}
 import models.SHelper._
 import org.joda.time.DateTime
+import play.api.Logger
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.slick.driver.MySQLDriver.api._
@@ -50,8 +51,9 @@ object PostServiceImpl extends PostService  {
 
   def update(p: Post) = {
     val query = posts.filter(_.id === p.id)
-      .map(d => (d.title, d.content, d.updatedAt))
-    Await.result(db.run(query.update(p.title, p.content, new DateTime())), Duration.Inf)
+      .map(d => (d.title, d.content, d.createdAt, d.updatedAt))
+      .update(p.title, p.content, p.createdAt.getOrElse(new DateTime()), new DateTime())
+    Await.result(db.run(query), Duration.Inf)
 
   }
 
