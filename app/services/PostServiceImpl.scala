@@ -50,7 +50,6 @@ object PostServiceImpl extends PostService  {
   }
 
   def update(p: Post) = {
-    Logger.info("post "+p.description)
     val query = posts.filter(_.id === p.id)
       .map(d => (d.title, d.description, d.content, d.createdAt, d.updatedAt))
       .update(p.title, p.description, p.content, p.createdAt.getOrElse(new DateTime()), new DateTime())
