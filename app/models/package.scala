@@ -4,7 +4,7 @@ package object models {
 
   import java.sql.Date
   import org.joda.time.DateTime
-  import scala.slick.driver.MySQLDriver.simple._
+  import slick.driver.MySQLDriver.api._
 
 
   implicit def dateTime  =

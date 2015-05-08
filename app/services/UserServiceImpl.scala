@@ -9,7 +9,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scalaz._
 import Scalaz._
-import scala.slick.driver.MySQLDriver.api._
+import slick.driver.MySQLDriver.api._
 
 
 /**

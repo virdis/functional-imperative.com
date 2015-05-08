@@ -2,7 +2,7 @@ package database
 
 import play.api.Play
 
-import scala.slick.driver.MySQLDriver.api._
+import slick.driver.MySQLDriver.api._
 import com.zaxxer.hikari.{HikariDataSource, HikariConfig}
 import play.Logger
 

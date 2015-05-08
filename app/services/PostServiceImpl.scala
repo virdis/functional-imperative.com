@@ -12,7 +12,7 @@ import org.joda.time.DateTime
 import play.api.Logger
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import scala.slick.driver.MySQLDriver.api._
+import slick.driver.MySQLDriver.api._
 import scalaz._
 import scalaz.syntax.either._
 import PostHelper._

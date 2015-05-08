@@ -1,6 +1,6 @@
 package models
 
-import scala.slick.driver.MySQLDriver.api._
+import slick.driver.MySQLDriver.api._
 import models.SHelper._
 
 case class TagPost(postId: Int, taglId: Int)

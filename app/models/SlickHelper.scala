@@ -1,7 +1,7 @@
 package models
 import database.db._
 
-import scala.slick.driver.MySQLDriver.api._
+import slick.driver.MySQLDriver.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
@@ -14,11 +14,11 @@ object SHelper {
 
   val schema = posts.schema ++ tags.schema ++ tagPost.schema ++ users.schema
 
-  def createTables = Await.result(db.run(Action.seq(
+  def createTables = Await.result(db.run(DBIO.seq(
     schema.create
   )), Duration.Inf)
 
-  def dropTables = Await.result(db.run(Action.seq(
+  def dropTables = Await.result(db.run(DBIO.seq(
     schema.drop
   )), Duration.Inf)
 
