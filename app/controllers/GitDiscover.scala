@@ -20,7 +20,7 @@ object GitDiscover extends Controller {
   def projectDetails = Action {
     request =>
       Logger.info("====")
-      Ok(views.html.gitDiscover())
+      Ok(views.html.projectdetails())
   }
 
   def projectTimeSeries = Action {
