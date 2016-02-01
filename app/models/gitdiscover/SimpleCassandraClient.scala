@@ -1,10 +1,7 @@
 package models.gitdiscover
 
 import play.api.Logger
-
-import com.datastax.driver.core.querybuilder.QueryBuilder
 import com.datastax.driver.core.Cluster
-import com.datastax.driver.core.ResultSetFuture
 import com.datastax.driver.core.Session
 import scala.collection.JavaConversions._
 import play.api.Logger
@@ -18,7 +15,7 @@ abstract class SimpleCassandraClient(node: String) {
 
   log(cluster.getMetadata())
 
-  val session = cluster.connect()
+  val session = cluster.connect("git")
 
   private def log(metadata: Metadata): Unit = {
     Logger.info(s"Connected to cluster: ${metadata.getClusterName}")
@@ -33,4 +30,4 @@ abstract class SimpleCassandraClient(node: String) {
   }
 }
 
-object SimpleCConnector extends SimpleCassandraClient(node = "54.68.122.113")
+
