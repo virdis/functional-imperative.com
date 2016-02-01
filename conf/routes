@@ -36,3 +36,5 @@ GET /svirdi/logout                  controllers.Posts.logout
 GET  /svirdi/topprojects             controllers.GitDiscover.topProjects
 
 GET /svirdi/projectdetails           controllers.GitDiscover.projectDetails
+
+GET /svirdi/projecttimeseries        controllers.GitDiscover.projectTimeSeries
