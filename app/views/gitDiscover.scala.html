@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+
+    <link href='@routes.Assets.at("stylesheets/nvd3.css")' rel="stylesheet">
+
+    <style>
+        text {
+        font: 12px sans-serif;
+        }
+        svg {
+        display: block;
+        }
+        html, body, #chart1, svg {
+        margin: 0px;
+        padding: 0px;
+        height:500px;
+        width: 500px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+    <body>
+
+
+    <div id="chart1" class='with-3d-shadow with-transitions'>
+        <svg></svg>
+    </div>
+
+
+
+    <script src='@routes.Assets.at("javascripts/d3.min.js")'></script>
+
+    <script src='@routes.Assets.at("javascripts/stream_layer.js")'></script>
+
+    <script src="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.min.js"  charset="utf-8"> </script>
+
+    <!--script src="lib/stream_layers.js"></script-->
+
+    <script>
+
+    var test_data = stream_layers(3,10+Math.random()*100,.1).map(function(data, i) {
+        return {
+            key: 'Stream' + i,
+            values: data
+        };
+    });
+    console.log('td',test_data);
+    var negative_test_data = new d3.range(0,3).map(function(d,i) {
+        return {
+            key: 'Stream' + i,
+            values: new d3.range(0,11).map( function(f,j) {
+                return {
+                    y: 10 + Math.random()*100 * (Math.floor(Math.random()*100)%2 ? 1 : -1),
+                    x: j
+                }
+            })
+        };
+    });
+//Generate some nice data.
+var exData = function exampleData() {
+  return stream_layers(3,10+Math.random()*100,.1).map(function(data, i) {
+    return {
+      key: 'Stream #' + i,
+      values: data
+    };
+  });
+}
+    var chart;
+    nv.addGraph(function() {
+        chart = nv.models.multiBarChart()
+            .barColor(d3.scale.category20().range())
+            .duration(300)
+            .margin({bottom: 100, left: 70})
+            .rotateLabels(45)
+            .groupSpacing(0.1)
+        ;
+        chart.reduceXTicks(false).staggerLabels(true);
+        chart.xAxis
+            .axisLabel("ID of Furry Cat Households")
+            .axisLabelDistance(35)
+            .showMaxMin(false)
+            .tickFormat(d3.format(',.6f'))
+        ;
+        chart.yAxis
+            .axisLabel("Change in Furry Cat Population")
+            .axisLabelDistance(-5)
+            .tickFormat(d3.format(',.01f'))
+        ;
+        chart.dispatch.on('renderEnd', function(){
+            nv.log('Render Complete');
+        });
+        d3.select('#chart1 svg')
+            .datum(exData)
+            .call(chart);
+        nv.utils.windowResize(chart.update);
+        chart.dispatch.on('stateChange', function(e) {
+            nv.log('New State:', JSON.stringify(e));
+        });
+        chart.state.dispatch.on('change', function(state){
+            nv.log('state', JSON.stringify(state));
+        });
+        return chart;
+    });
+
+    </script>
+    </body>
+</html>
