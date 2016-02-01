@@ -1,6 +1,7 @@
 package controllers
 
-import models.gitdiscover.{TopRepo, TopRepos}
+import models.gitdiscover.{RepoStats, TopRepo, TopRepos}
+import play.api.Logger
 import play.api.mvc.{Action, Controller}
 
 /**
@@ -13,5 +14,11 @@ object GitDiscover extends Controller {
 
     Ok(views.html.topproject(TopRepos.get))
 
+  }
+
+  def projectDetails = Action {
+    request =>
+      Logger.info("==== "+RepoStats.get)
+      Ok(views.html.gitDiscover())
   }
 }
