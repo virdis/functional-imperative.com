@@ -16,7 +16,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "bootstrap" % "3.3.1",
   "org.webjars" % "jquery" % "2.1.3",
   "org.webjars" % "less" % "2.1.0",
-  "com.datastax.cassandra" % "cassandra-driver-core" % "3.0.0",
+  "com.datastax.cassandra" % "cassandra-driver-core" % "2.1.9",
   filters
 )
 
