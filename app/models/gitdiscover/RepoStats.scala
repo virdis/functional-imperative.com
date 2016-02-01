@@ -2,6 +2,7 @@ package models.gitdiscover
 
 import com.datastax.driver.core.ResultSet
 import com.datastax.driver.core.querybuilder.{Clause, QueryBuilder}
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 import scala.collection.JavaConversions._
 import database.cdb
@@ -12,6 +13,8 @@ import QueryBuilder.{eq => ceq}
   */
 case class RepoStats(projectname: String, yrmonth: String,
                      createdAt: String, language: String, eventtype: String, eventcommitter: String)
+// x = day : y = noOfCommits on that day
+case class GraphView(day: Int, noOfCommit: Int)
 
 object RepoStatsFormat {
   implicit val repostatsFormat = Json.format[RepoStats]
@@ -23,15 +26,19 @@ object RepoStats {
 
     //mozilla/browser.html | 2015-01
     val statement  = QueryBuilder.select().all().from("git", "repostats")
-      .where(ceq("projectname","mozilla/browser.html")).and(ceq("yrmonth","2015-01")).limit(100)
+      .where(ceq("projectname","mozilla/browser.html")).and(ceq("yrmonth","2015-01")).limit(10)
     process(cdb.client.session.execute(statement))
   }
 
-  def process(rs: ResultSet): List[RepoStats] = {
-    var rsts = List.empty[RepoStats]
+  def process(rs: ResultSet)  = {
+    var rsts = Map.empty[String, GraphView]
     for(r <- rs) {
-      rsts = RepoStats(r.getString("projectname"), r.getString("yrmonth"), r.getString("createdAt"), r.getString("language"),
-       r.getString("eventtype"), r.getString("eventcommitter")) +: rsts
+      if (rsts.get(r.getString("eventtype")).nonEmpty) {
+        val gv = rsts(r.getString("eventtype"))
+        rsts.updated(r.getString("eventtype"), gv.copy(noOfCommit = gv.noOfCommit + 1))
+      } else {
+        rsts = rsts + ((r.getString("eventtype"), GraphView(DateTime.parse(r.getString("createdAt")).getDayOfMonth, 1)))
+      }
     }
     rsts
   }
