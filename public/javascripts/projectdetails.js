@@ -2,7 +2,7 @@
 
 $( document ).ready(function(){
   if((window.location.href.indexOf("projectdetails")) > -1) {
-
+// forceX , forceY to set the layout
     $.ajax({
       url: '/svirdi/projecttimeseries',
       data: {
@@ -24,6 +24,7 @@ $( document ).ready(function(){
                 .axisLabel("Day of Month")
                 .axisLabelDistance(35)
                 .showMaxMin(false)
+                //.ticks(d3.time.days, 30)
                 .tickFormat(d3.format(',.6f'))
                 ;
               chart.yAxis
