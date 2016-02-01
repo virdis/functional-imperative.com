@@ -1,6 +1,6 @@
 package controllers
 
-import models.gitdiscover.{RepoStats, TopRepo, TopRepos}
+import models.gitdiscover.{RepoStats, TopRepos}
 import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
@@ -19,7 +19,12 @@ object GitDiscover extends Controller {
 
   def projectDetails = Action {
     request =>
-      //Logger.info("==== "+Json.toJson(RepoStats.get))
+      Logger.info("====")
       Ok(views.html.gitDiscover())
+  }
+
+  def projectTimeSeries = Action {
+    request =>
+      Ok(Json.toJson(RepoStats.get))
   }
 }
