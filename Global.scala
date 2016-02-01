@@ -1,7 +1,8 @@
+import database.cdb
+import models.gitdiscover.SimpleCassandraClient
 import play.api._
 import play.api.mvc._
 import play.filters.csrf._
-import services.SimpleCConnector
 
 
 object Global extends WithFilters(CSRFFilter()) with GlobalSettings {
@@ -10,7 +11,7 @@ object Global extends WithFilters(CSRFFilter()) with GlobalSettings {
     Logger.info("Before Application starts")
     try {
       database.db.db.source.close()
-      SimpleCConnector.shutDownCluster
+
     }
     catch { case e:Exception => Logger.info(" *** === *** "+e.printStackTrace()) }
   }
@@ -18,12 +19,12 @@ object Global extends WithFilters(CSRFFilter()) with GlobalSettings {
   override def onStart(app: Application) {
     Logger.info("Application has started")
     database.db.db
-    SimpleCConnector
+    cdb.client
   }
 
   override def onStop(app: Application) {
     Logger.info("Application shutdown...")
     database.db.db.source.close()
-    SimpleCConnector.shutDownCluster
+    cdb.client.shutDownCluster
   }
 }
