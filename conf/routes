@@ -32,3 +32,5 @@ POST /svirdi/admin/update           controllers.Posts.updatePost()
 GET /svirdi/about                   controllers.Posts.about
 
 GET /svirdi/logout                  controllers.Posts.logout
+
+GET  /svirdi/topprojects             controllers.GitDiscover.topProjects
