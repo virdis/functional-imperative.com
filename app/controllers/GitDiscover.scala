@@ -27,4 +27,10 @@ object GitDiscover extends Controller {
     request =>
       Ok(Json.toJson(RepoStats.get))
   }
+
+  def searchts(reponame: String, month: String) = Action {
+    request =>
+      Logger.info("reponame "+reponame +" month "+month)
+      Ok(Json.toJson(RepoStats.search(reponame, month)))
+  }
 }
