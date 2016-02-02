@@ -27,11 +27,39 @@ object RepoStats {
 
   type EventType = String
 
+  val KEYSPACE = "git"
+  val TABLE = "repostats"
+  val YEAR = "2015"
+
+  val YRMONTH = Map(
+    ("Jan", YEAR + "-01"),
+    ("Feb", YEAR + "-02"),
+    ("Mar", YEAR + "-03"),
+    ("Apr", YEAR + "-04"),
+    ("May", YEAR + "-05"),
+    ("Jun", YEAR + "-06"),
+    ("Jul", YEAR + "-07"),
+    ("Aug", YEAR + "-08"),
+    ("Sep", YEAR + "-09"),
+    ("Sep", YEAR + "-09"),
+    ("Ocr", YEAR + "-10"),
+    ("Nov", YEAR + "-11"),
+    ("Dec", YEAR + "-12")
+  )
+
   def get = {
 
     //mozilla/browser.html | 2015-01
-    val statement  = QueryBuilder.select().all().from("git", "repostats")
+    val statement  = QueryBuilder.select().all().from(KEYSPACE, TABLE)
       .where(ceq("projectname","mozilla/browser.html")).and(ceq("yrmonth","2015-01"))
+    process(cdb.client.session.execute(statement))
+  }
+
+
+  def search(reponame: String, month: String) = {
+    println("-========- "+YRMONTH(month))
+    val statement = QueryBuilder.select().all().from(KEYSPACE, TABLE)
+      .where(ceq("projectname", reponame)).and(ceq("yrmonth", YRMONTH(month)))
     process(cdb.client.session.execute(statement))
   }
 
