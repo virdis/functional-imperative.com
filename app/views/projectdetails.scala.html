@@ -54,24 +54,52 @@
 
         <div class="page-header" style="margin: 55px 0 20px;">
             <div class="row">
-                <div class="col-md-6">
-                    <!-- Large button group -->
-                    <div class="btn-group">
-                        <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Large button <span class="caret"></span>
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input id="rname" type="text" class="form-control" placeholder="Full Repository name" aria-describedby="basic-addon2">
+                        <span class="input-group-addon" id="basic-addon2">username/repositoryname</span>
+                    </div>
+
+                    <!-- Single button -->
+                    <div id="month" class="btn-group" style="margin-top:5px;">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Month <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li>Test</li>
+                            <li><a href="#">Jan</a></li>
+                            <li><a href="#">Feb</a></li>
+                            <li><a href="#">Mar</a></li>
+                            <li><a href="#">Apr</a></li>
+                            <li><a href="#">May</a></li>
+                            <li><a href="#">Jun</a></li>
+                            <li><a href="#">Jul</a></li>
+                            <li><a href="#">Aug</a></li>
+                            <li><a href="#">Sep</a></li>
+                            <li><a href="#">Oct</a></li>
+                            <li><a href="#">Nov</a></li>
+                            <li><a href="#">Dec</a></li>
                         </ul>
                     </div>
-                    <!-- Large button group -->
-                    <div class="btn-group">
-                        <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Large button <span class="caret"></span>
+                    <div id="gevent" class="btn-group" style="margin-top:5px;">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Event Type <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            ...
+                            <li><a href="#">CommitCommentEvent</a></li>
+                            <li><a href="#">CreateEvent</a></li>
+                            <li><a href="#">ForkEvent</a></li>
+                            <li><a href="#">ForkApplyEvent</a></li>
+                            <li><a href="#">IssueCommentEvent</a></li>
+                            <li><a href="#">IssuesEvent</a></li>
+                            <li><a href="#">PullRequestEvent</a></li>
+                            <li><a href="#">PullRequestReviewCommentEvent</a></li>
+                            <li><a href="#">PushEvent</a></li>
+                            <li><a href="#">WatchEvent</a></li>
+
                         </ul>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="..." style="margin-top:5px;">
+                        <button id="tform" type="button" class="btn btn-default">Submit</button>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -104,6 +132,8 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src='@routes.Assets.at("javascripts/projectdetails.js")'></script>
+
+    <script src='@routes.Assets.at("javascripts/ptimeseries.js")'></script>
 
     </body>
 </html>
