@@ -33,7 +33,7 @@ GET /svirdi/about                   controllers.Posts.about
 
 GET /svirdi/logout                  controllers.Posts.logout
 
-GET  /svirdi/topprojects             controllers.GitDiscover.topProjects
+GET  /svirdi/gitDiscover             controllers.GitDiscover.topProjects
 
 GET /svirdi/projectdetails           controllers.GitDiscover.projectDetails
 
