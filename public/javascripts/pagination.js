@@ -11,12 +11,12 @@ $( document ).ready(function() {
         num = pageno.split( "=" )[1];
     }
 
-$( ".next a" ).click(function(){
+    $( ".next a" ).click(function(){
 
-    if ( num !== undefined ) {
-        window.location.href = "/svirdi?page=" + (1 + parseInt(num)); 
-    } else {
-        window.location.href = "/svirdi?page=2"; 
-    }
-}); 
+        if ( num !== undefined ) {
+            window.location.href = "/svirdi?page=" + (1 + parseInt(num));
+        } else {
+            window.location.href = "/svirdi?page=2";
+        }
+    });
 });
