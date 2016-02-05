@@ -23,9 +23,9 @@ object GitDiscover extends Controller {
       Ok(views.html.projectdetails())
   }
 
-  def projectTimeSeries = Action {
+  def projectTimeSeries(name: String, ymonth: String) = Action {
     request =>
-      Ok(Json.toJson(RepoStats.get))
+      Ok(Json.toJson(RepoStats.get(name, ymonth)))
   }
 
   def searchts(reponame: String, month: String) = Action {
