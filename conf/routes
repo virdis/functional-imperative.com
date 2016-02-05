@@ -42,3 +42,5 @@ GET /svirdi/projecttimeseries        controllers.GitDiscover.projectTimeSeries(n
 GET /svirdi/searchts/:reponame/:month    controllers.GitDiscover.searchts(reponame: String, month: String)
 
 GET /svirdi/userActivity            controllers.GitDiscover.userActivity(prjName: String ?= "scala/scala")
+
+GET /svirdi/gitDiscover/slides     controllers.GitDiscover.slides

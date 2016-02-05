@@ -39,4 +39,10 @@ object GitDiscover extends Controller {
     request =>
       Ok(Json.toJson(UserActivity.get(prjName)))
   }
+
+  def slides = Action {
+    request =>
+      Ok(views.html.slides())
+
+  }
 }
