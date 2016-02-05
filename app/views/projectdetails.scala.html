@@ -23,6 +23,12 @@
         height:500px;
         width: 500px;
         }
+        .testBlock {
+        display: block;
+        height: 400px;
+        width: 400px;
+        padding: 10px;
+        }
     </style>
     <meta charset="UTF-8">
     <title>Project Details</title>
@@ -43,8 +49,10 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">List of Top Projects</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li class=""><a href="#">List of Top Projects</a></li>
+                    <li class="active"><a href="/svirdi/projecttimeseries">TimeSeries Project Search</a></li>
+
+                    <li><a href="/svirdi/about">About</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -56,7 +64,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <input id="rname" type="text" class="form-control" placeholder="Full Repository name" aria-describedby="basic-addon2">
+                        <input id="rname" type="text" placeholder="rust-lang/rust" class="form-control" aria-describedby="basic-addon2">
                         <span class="input-group-addon" id="basic-addon2">username/repositoryname</span>
                     </div>
 
@@ -83,7 +91,10 @@
                       <div class="btn-group" role="group" aria-label="..." style="margin-top:5px;">
                         <button id="tform" type="button" class="btn btn-default">Submit</button>
                     </div>
+                    <div class="testBlock"><svg id="test1"></svg></div>
+
                 </div>
+
                 <div class="col-md-6">
                     <div id="chart1" class='with-3d-shadow with-transitions'>
                         <svg></svg>
@@ -94,7 +105,6 @@
         </div>
 
     </div><!-- /.container -->
-
 
 
 
@@ -113,6 +123,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src='@routes.Assets.at("javascripts/projectdetails.js")'></script>
+    <script src='@routes.Assets.at("javascripts/useractivity.js")'></script>
 
     <script src='@routes.Assets.at("javascripts/ptimeseries.js")'></script>
 

@@ -23,9 +23,10 @@ object TopRepos {
 
   def process(rs: ResultSet): List[TopRepo] = {
     var tps = Map.empty[String, TopRepo]
+
     for(r <- rs){
       //tps = TopRepo(r.getString("date"), r.getString("name"), r.getLong("eventstotal"), r.getString("language"))
-      if(r.getLong("eventstotal") > 5000) {
+      if(r.getLong("eventstotal") > 8000) {
         if (tps.get(r.getString("name")).isEmpty) {
           tps = tps + ((r.getString("name"),
             TopRepo(r.getString("date"), r.getString("name"), r.getLong("eventstotal"), r.getString("language"))))
