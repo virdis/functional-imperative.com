@@ -37,6 +37,8 @@ GET  /svirdi/gitDiscover             controllers.GitDiscover.topProjects
 
 GET /svirdi/projectdetails           controllers.GitDiscover.projectDetails
 
-GET /svirdi/projecttimeseries        controllers.GitDiscover.projectTimeSeries(name: String ?= "rust-lang/rust", month: String ?= "Jan")
+GET /svirdi/projecttimeseries        controllers.GitDiscover.projectTimeSeries(name: String ?= "scala/scala", month: String ?= "Jan")
 
 GET /svirdi/searchts/:reponame/:month    controllers.GitDiscover.searchts(reponame: String, month: String)
+
+GET /svirdi/userActivity            controllers.GitDiscover.userActivity(prjName: String ?= "scala/scala")

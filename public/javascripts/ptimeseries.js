@@ -16,7 +16,7 @@ $( document ).ready(function(){
           url: '/svirdi/searchts/' +encodeURIComponent($( "#rname" ).val()) +'/' + month,
           data: 'json',
           success: function(data) {
-            console.log("Search Data "+JSON.stringify(data));
+            //console.log("Search Data "+JSON.stringify(data));
             var chart;
             nv.addGraph(function() {
               chart = nv.models.multiBarChart()
@@ -56,7 +56,32 @@ $( document ).ready(function(){
               return chart;
             });
           }
-        }); 
+        });
+        $.ajax({
+          url: '/svirdi/userActivity?prjName=' +$( "#rname" ).val(),
+          data: {
+            format: 'json'
+          },
+          success: function(data) {
+             //console.log("Pie Data "+JSON.stringify(data));
+
+             nv.addGraph(function() {
+                  var chart = nv.models.pieChart()
+                      .x(function(d) { return d.label })
+                      .y(function(d) { return d.value })
+                      .showLabels(true);
+                    $( ".testBlock svg" ).empty();
+                    d3.select(".testBlock svg")
+                        .datum(data)
+                        .transition().duration(350)
+                        .call(chart);
+
+                  return chart;
+                });
+          },
+          type: 'GET'
+          });
+
       } 
     });
 

@@ -1,19 +1,31 @@
 $( document ).ready(function(){
   if((window.location.href.indexOf("projectdetails")) > -1) {
     //Regular pie chart example
-    nv.addGraph(function() {
-      var chart = nv.models.pieChart()
-          .x(function(d) { return d.label })
-          .y(function(d) { return d.value })
-          .showLabels(true);
+    $.ajax({
+          url: '/svirdi/userActivity',
+          data: {
+            format: 'json'
+          },
+          success: function(data) {
+             //console.log("Pie Data "+JSON.stringify(data));
 
-        d3.select(".testBlock svg")
-            .datum(exampleData())
-            .transition().duration(350)
-            .call(chart);
+             nv.addGraph(function() {
+                  var chart = nv.models.pieChart()
+                      .x(function(d) { return d.label })
+                      .y(function(d) { return d.value })
+                      .showLabels(true);
 
-      return chart;
-    });
+                    d3.select(".testBlock svg")
+                        .datum(data)
+                        .transition().duration(350)
+                        .call(chart);
+
+                  return chart;
+                });
+          },
+          type: 'GET'
+          });
+
 
     //Pie chart example data. Note how there is only a single array of key-value pairs.
     function exampleData() {

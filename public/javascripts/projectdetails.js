@@ -9,7 +9,7 @@ $( document ).ready(function(){
         format: 'json'
       },
       success: function(data) {
-        console.log("Data "+JSON.stringify(data));
+        //console.log("Data "+JSON.stringify(data));
         var chart;
             nv.addGraph(function() {
               chart = nv.models.multiBarChart()
