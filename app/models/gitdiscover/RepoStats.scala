@@ -3,6 +3,7 @@ package models.gitdiscover
 import com.datastax.driver.core.ResultSet
 import com.datastax.driver.core.querybuilder.{Clause, QueryBuilder}
 import org.joda.time.DateTime
+import play.api.Logger
 import play.api.libs.json.Json
 import scala.collection.JavaConversions._
 import database.cdb
@@ -47,11 +48,10 @@ object RepoStats {
     ("Dec", YEAR + "-12")
   )
 
-  def get = {
-
-    //mozilla/browser.html | 2015-01
+  def get(projName: String , ymonth: String ) = {
+    Logger.info("ProjecName  "+projName +" month "+YRMONTH(ymonth))
     val statement  = QueryBuilder.select().all().from(KEYSPACE, TABLE)
-      .where(ceq("projectname","mozilla/browser.html")).and(ceq("yrmonth","2015-01"))
+      .where(ceq("projectname", projName)).and(ceq("yrmonth",YRMONTH(ymonth)))
     process(cdb.client.session.execute(statement))
   }
 
