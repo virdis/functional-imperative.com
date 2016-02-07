@@ -37,6 +37,7 @@ object GitDiscover extends Controller {
 
   def userActivity(prjName: String) = Action {
     request =>
+      Logger.info("Projectname "+prjName)
       Ok(Json.toJson(UserActivity.get(prjName)))
   }
 
