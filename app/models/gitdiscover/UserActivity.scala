@@ -7,6 +7,8 @@ import play.api.libs.json.Json
 import scala.collection.JavaConversions._
 import QueryBuilder.{eq => ceq}
 
+import scala.collection.mutable
+
 /**
   * Created by sandeep on 2/4/16.
   */
@@ -30,10 +32,15 @@ object UserActivity {
   }
 
   def process(rs: ResultSet): List[PieChart] = {
-    var list = List.empty[PieChart]
+    val list = new mutable.PriorityQueue[PieChart]()(pq)
+
     for (r <- rs) {
-      list = PieChart(r.getString("username"), r.getLong("count")) +: list
+      list += PieChart(r.getString("username"), r.getLong("count"))
     }
-    list
+    list.toList.take(25)
+  }
+
+  object pq extends Ordering[PieChart] {
+    override def compare(u1: PieChart, u2: PieChart) = u1.value compare u2.value
   }
 }
