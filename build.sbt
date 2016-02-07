@@ -17,6 +17,8 @@ libraryDependencies ++= Seq(
   "org.webjars" % "jquery" % "2.1.3",
   "org.webjars" % "less" % "2.1.0",
   "com.datastax.cassandra" % "cassandra-driver-core" % "2.1.9",
+  "org.apache.lucene" % "lucene-core" % "5.4.1",
+  "org.apache.lucene" % "lucene-analyzers-common" % "5.4.1",
   filters
 )
 
