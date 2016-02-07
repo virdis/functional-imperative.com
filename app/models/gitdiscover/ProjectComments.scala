@@ -20,13 +20,12 @@ import scala.util.control.NonFatal
   * Created by sandeep on 2/5/16.
   */
 case class ProjectComments(projectname: String, comments: List[String])
-case class MoodCount(text: String, count: Int)
-case class GraphItem(list: List[MoodCount])
+case class MoodCount(label: String, value: Int)
+
 
 object PCFormat {
   implicit val pcFormat = Json.format[ProjectComments]
   implicit val gvmcFormat = Json.format[MoodCount]
-  implicit val giFormat = Json.format[GraphItem]
 }
 
 object ProjectComments {
@@ -59,13 +58,13 @@ object ProjectComments {
     "crapi", "fuck","damn","piss", "screw","suck"
   )
 
-  def get(prjName: String): GraphItem = {
+  def get(prjName: String): List[MoodCount] = {
     val statement = QueryBuilder.select("projectname","comment").from(KEYSPACE, TABLE)
         .where(ceq("projectname", prjName))
     process(database.cdb.client.session.execute(statement))
   }
 
-  def process(rs: ResultSet): GraphItem = {
+  def process(rs: ResultSet): List[MoodCount] = {
 
     var rsts = List.empty[String]
     var name = ""
@@ -79,7 +78,7 @@ object ProjectComments {
   /*
       Analyze Comments and Tokenize
    */
-  def commentStopWords(comments: List[String]): GraphItem = {
+  def commentStopWords(comments: List[String]): List[MoodCount] = {
 
     var ang = MoodCount(angry, 0)
     var jy = MoodCount(joy, 0)
@@ -99,22 +98,22 @@ object ProjectComments {
           while(ts.incrementToken()) {
             val term = ts.getAttribute[CharTermAttribute](classOf[CharTermAttribute]).toString()
             //Logger.info("Term ==== "+term)
-            if (ANGRY_SET.contains(term)) ang = ang.copy(count = ang.count + 1)
-            else if (JOY_SET.contains(term)) jy = jy.copy(count = jy.count + 1)
-            else if (AMUSEMENT_SET.contains(term)) am = am.copy(count = am.count + 1)
-            else if (SURPRISED_SET.contains(term)) sur = sur.copy(count = sur.count + 1)
-            else if (SWEAR_SET.contains(term)) swe = swe.copy(count = swe.count + 1)
+            if (ANGRY_SET.contains(term)) ang = ang.copy(value = ang.value + 1)
+            else if (JOY_SET.contains(term)) jy = jy.copy(value = jy.value + 1)
+            else if (AMUSEMENT_SET.contains(term)) am = am.copy(value = am.value + 1)
+            else if (SURPRISED_SET.contains(term)) sur = sur.copy(value = sur.value + 1)
+            else if (SWEAR_SET.contains(term)) swe = swe.copy(value = swe.value + 1)
 
           }
         }
 
       }
-      GraphItem(List(ang, jy, am, sur, swe))
+      List(ang, jy, am, sur, swe)
     } catch {
       case NonFatal(ex) =>
         Logger.error("Comment processing failed !!!!!")
         Logger.error(ex.getCause + " message "+ex.getMessage)
-        GraphItem(List(ang, jy, am, sur, swe))
+        List(ang, jy, am, sur, swe)
 
     }
   }
