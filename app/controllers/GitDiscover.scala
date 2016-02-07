@@ -1,11 +1,16 @@
 package controllers
 
-import models.gitdiscover.{UserActivity, RepoStats, TopRepos}
+import models.gitdiscover.{ProjectComments, UserActivity, RepoStats, TopRepos}
 import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import models.gitdiscover.RepoStatsFormat._
 import models.gitdiscover.UserActivityFormat._
+import models.gitdiscover.PCFormat._
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+
+import scala.concurrent.Future
+
 /**
   * Created by sandeep on 1/30/16.
   */
@@ -24,21 +29,30 @@ object GitDiscover extends Controller {
       Ok(views.html.projectdetails())
   }
 
-  def projectTimeSeries(name: String, ymonth: String) = Action {
+  def projectTimeSeries(name: String, ymonth: String) = Action.async {
     request =>
-      Ok(Json.toJson(RepoStats.get(name, ymonth)))
+      Future(Ok(Json.toJson(RepoStats.get(name, ymonth))))
   }
 
-  def searchts(reponame: String, month: String) = Action {
+  def searchts(prjName: String, month: String) = Action {
     request =>
-      Logger.info("reponame "+reponame +" month "+month)
-      Ok(Json.toJson(RepoStats.search(reponame, month)))
+      Logger.info("reponame "+prjName +" month "+month)
+      Ok(Json.toJson(RepoStats.search(prjName, month)))
   }
 
-  def userActivity(prjName: String) = Action {
+  def userActivity(prjName: String) = Action.async {
     request =>
       Logger.info("Projectname "+prjName)
-      Ok(Json.toJson(UserActivity.get(prjName)))
+      Future(
+        Ok(Json.toJson(UserActivity.get(prjName)))
+      )
+  }
+
+  def analyzeComments(prjName: String) = Action.async {
+    request =>
+      Future(
+        Ok(Json.toJson(ProjectComments.get(prjName)))
+      )
   }
 
   def slides = Action {
