@@ -1,6 +1,6 @@
 package controllers
 
-import models.gitdiscover.{ProjectComments, UserActivity, RepoStats, TopRepos}
+import models.gitdiscover._
 import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
@@ -9,8 +9,10 @@ import models.gitdiscover.UserActivityFormat._
 import models.gitdiscover.PCFormat._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
+import scala.collection.mutable
 import scala.concurrent.Future
-
+import play.api.cache.Cache
+import play.api.Play.current
 /**
   * Created by sandeep on 1/30/16.
   */
@@ -19,7 +21,9 @@ object GitDiscover extends Controller {
 
   def topProjects = Action { request =>
 
-    Ok(views.html.topproject(TopRepos.get))
+    val repos = Cache.getOrElse[Map[String, mutable.PriorityQueue[TopRepo]]]("repo") {TopRepos.get}
+
+    Ok(views.html.topproject(repos))
 
   }
 
