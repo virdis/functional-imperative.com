@@ -1,4 +1,4 @@
-@(toprepos: List[models.gitdiscover.TopRepo])
+@(toprepos:  Map[String, scala.collection.mutable.PriorityQueue[models.gitdiscover.TopRepo]])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,20 +40,28 @@
 <div class="container">
 
     <div class="page-header" style="margin: 55px 0 20px;">
-        <div class="list-group">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-info">Top 10 Projects By Languages</div>
 
-            @for(repo <- toprepos) {
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="#" data-name="@repo.name" class="list-group-item">
-                        @repo.name
-                    </a>
-                </div>
-                <div class="col-md-6"><span class="label label-success">@repo.language</span></div>
-            </div>
+            <div class="panel-body"></div>
+
+                @for(key <- toprepos.keys) {
+
+                    @for(repo <- toprepos(key)) {
+
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-success">
+                                <div><span>@repo.name</span>
+                                <span>@repo.language</span></div>
+                            </li>
+
+                        </ul>
 
             }
+                }
+
         </div>
+
     </div>
 
 </div><!-- /.container -->

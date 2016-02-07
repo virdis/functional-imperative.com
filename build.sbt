@@ -19,6 +19,7 @@ libraryDependencies ++= Seq(
   "com.datastax.cassandra" % "cassandra-driver-core" % "2.1.9",
   "org.apache.lucene" % "lucene-core" % "5.4.1",
   "org.apache.lucene" % "lucene-analyzers-common" % "5.4.1",
+  cache,
   filters
 )
 
