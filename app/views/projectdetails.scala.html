@@ -12,10 +12,10 @@
 
     <style>
         text {
-        font: 7px sans-serif;
+            font: 7px sans-serif;
         }
         svg {
-        display: block;
+         display: block;
         }
         #chart1, svg {
             margin: 0px;
@@ -32,6 +32,22 @@
 
             font: 7px sans-serif;
         }
+        #test2 {
+            height: 400px !important;
+            width: 350px !important;
+            font: 7px sans-serif;
+            margin-left: 350px;
+        }
+        .nvd3.nv-pie.nv-chart-donut2 .nv-pie-title {
+            fill: rgba(70, 107, 168, 0.78);
+        }
+        // Class
+        .center-block {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
     </style>
     <meta charset="UTF-8">
     <title>Project Details</title>
@@ -113,7 +129,7 @@
                 <div class="testBlock">
 
                     <svg id="test1">
-                        <h5>Top 25 Contributors</h5>
+
                     </svg>
                 </div>
             </div>
@@ -126,6 +142,9 @@
     </div><!-- /.container -->
 
     <div class="container-fluid">
+       <div class="center-block">
+           <svg id="test2" class="mypiechart"></svg>
+       </div>
 
     </div>
 
@@ -134,7 +153,6 @@
 
     <script src="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.min.js"  charset="utf-8"> </script>
 
-    <!--script src="lib/stream_layers.js"></script-->
 
 
 
@@ -147,6 +165,9 @@
     <script src='@routes.Assets.at("javascripts/useractivity.js")'></script>
 
     <script src='@routes.Assets.at("javascripts/ptimeseries.js")'></script>
+
+    <script src='@routes.Assets.at("javascripts/comments.js")'></script>
+
 
     </body>
 </html>
