@@ -69,7 +69,7 @@ object ProjectComments {
 
     var rsts = List.empty[String]
     var name = ""
-    for (r <- rs) {
+    rs.foreach { r =>
       name = r.getString("projectname")
       rsts =  r.getString("comment") +: rsts
     }
@@ -77,7 +77,7 @@ object ProjectComments {
   }
 
   /*
-      English Language Analyzer and Stemmer
+      Analyze Comments and Tokenize
    */
   def commentStopWords(comments: List[String]): GraphItem = {
 
@@ -94,7 +94,7 @@ object ProjectComments {
           val englishAnalyzer = new EnglishAnalyzer()
 
           val ts = englishAnalyzer.tokenStream(null, comment)
-          
+
           ts.reset()
           while(ts.incrementToken()) {
             val term = ts.getAttribute[CharTermAttribute](classOf[CharTermAttribute]).toString()
