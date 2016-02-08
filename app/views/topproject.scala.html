@@ -1,4 +1,4 @@
-@(toprepos:  Map[String, scala.collection.mutable.PriorityQueue[models.gitdiscover.TopRepo]])
+@(toprepos:  Map[String, Map[String, models.gitdiscover.TopRepo]])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,17 +47,21 @@
 
                 @for(key <- toprepos.keys) {
 
-                    @for(repo <- toprepos(key)) {
+                    @for(tpMap <- toprepos(key)) {
 
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-success">
-                                <div><span>@repo.name</span>
-                                <span>@repo.language</span></div>
+                                <div><span>@tpMap._1</span>
+                                    <span>@tpMap._2.language</span>
+                                </div>
                             </li>
 
                         </ul>
 
-            }
+
+
+
+                     }
                 }
 
         </div>

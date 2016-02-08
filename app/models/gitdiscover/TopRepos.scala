@@ -4,12 +4,11 @@ import com.datastax.driver.core.ResultSet
 import database.cdb
 import play.api.libs.json._
 import scala.collection.JavaConversions._
-import scala.collection.mutable
 
 /**
   * Created by sandeep on 1/31/16.
   */
-case class TopRepo(date: String, name: String, eventstotal: Long, language: String)
+case class TopRepo(name: String, eventstotal: Long, language: String)
 
 
 object TopReposFormat {
@@ -42,40 +41,55 @@ object TopRepos {
     process(cdb.client.session.execute("select * from git.toprepos limit 10000;"))
   }
 
-  def process(rs: ResultSet): Map[String, mutable.PriorityQueue[TopRepo]]  = {
+  def findMin(m: Map[String,TopRepo]) = {
+    var min = 0L
+    var minTP: TopRepo = null
+    m.keys.foreach {
+      k =>
+        val t = m(k)
+        if (t.eventstotal < min) {
+          min = t.eventstotal
+          minTP = t
+        }
+    }
+    Option(minTP)
+  }
+  def process(rs: ResultSet)  = {
+
     type LANGUAGE = String
-    val topLangs = ALL_LANGS.foldLeft(Map.empty[LANGUAGE, mutable.PriorityQueue[TopRepo]]) {
+    var topLangs = ALL_LANGS.foldLeft(Map.empty[LANGUAGE, Map[String, TopRepo]]) {
       (b, a) =>
-        b + ((a, new mutable.PriorityQueue[TopRepo]()(repoOrder)))
+        b + ((a, Map.empty[String, TopRepo]))
     }
 
-    for(r <- rs){
-      if (topLangs.get(r.getString("language")).nonEmpty) {
-        val langPQueue = topLangs(r.getString("language"))
+    for(r <- rs) {
+      val currentTR = TopRepo(r.getString("name"), r.getLong("eventstotal"), r.getString("language"))
 
-        if (langPQueue.size >= 10) {
-          val tpRepo = langPQueue.head
-          if (tpRepo.eventstotal < r.getLong("eventstotal")) {
-            langPQueue.dequeue() // remove top element
-            langPQueue.enqueue(TopRepo(r.getString("date"), r.getString("name"),
-              r.getLong("eventstotal"), r.getString("language"))) // add new top element
+      if (topLangs.get(r.getString("name")).nonEmpty) {
+
+        val tpMap = topLangs(r.getString("name"))
+
+        if(tpMap.get(currentTR.name).nonEmpty) {
+          val tp = tpMap(currentTR.name)
+          if (currentTR.eventstotal > tp.eventstotal) {
+            topLangs = topLangs.updated(r.getString("name"), tpMap.updated(tp.name, currentTR))
           }
-        } else {
-          // check if project already exists
-          val project = langPQueue.find(_.name == r.getString("name"))
-          if (project.nonEmpty) {
-            if (project.get.eventstotal < r.getLong("eventstotal")) {
-              langPQueue.foreach(p => if(p.name == r.getString("name")) p.copy(eventstotal = r.getLong("eventstotal")))
+        } else if (tpMap.keys.size >= 10) {
+          val minTP: Option[TopRepo] = findMin(tpMap)
+          if (minTP.nonEmpty) {
+            if (minTP.get.eventstotal < currentTR.eventstotal) {
+              val removeMP = tpMap - (minTP.get.name)
+              topLangs = topLangs.updated(r.getString("name"), removeMP.updated(currentTR.name, currentTR))
+
             }
-          } else {
-            langPQueue.enqueue(TopRepo(r.getString("date"),
-              r.getString("name"), r.getLong("eventstotal"), r.getString("language")))
           }
 
+        } else {
+          topLangs = topLangs.updated(r.getString("name"), tpMap.updated(currentTR.name, currentTR))
         }
       }
-    }
 
+    }
 
     topLangs
   }
