@@ -21,7 +21,7 @@ object GitDiscover extends Controller {
 
   def topProjects = Action { request =>
 
-    val repos = Cache.getOrElse[Map[String, mutable.PriorityQueue[TopRepo]]]("repo") {TopRepos.get}
+    val repos = Cache.getOrElse[List[TopRepo]]("repo") {TopRepos.get}
 
     Ok(views.html.topproject(repos))
 

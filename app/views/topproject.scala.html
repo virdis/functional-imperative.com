@@ -1,5 +1,4 @@
-@(toprepos:  Map[String, scala.collection.mutable.PriorityQueue[models.gitdiscover.TopRepo]])
-
+@(toprepos: List[models.gitdiscover.TopRepo])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,13 +23,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Git Discover</a>
+            <a class="navbar-brand" href="/svirdi/gitDiscover">Git Discover</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">List of Top Projects</a></li>
+                <li class="active"><a href="/svirdi/gitDiscover">List of Top Projects</a></li>
                 <li class=""><a href="/svirdi/projectdetails">TimeSeries Project Search</a></li>
-
                 <li><a href="/svirdi/about">About</a></li>
             </ul>
         </div><!--/.nav-collapse -->
@@ -38,32 +36,15 @@
 </nav>
 
 <div class="container">
-
     <div class="page-header" style="margin: 55px 0 20px;">
-        <div class="panel panel-default">
-            <div class="panel-heading panel-info">Top 10 Projects By Languages</div>
-
-            <div class="panel-body"></div>
-
-                @for(key <- toprepos.keys) {
-
-                    @for(repo <- toprepos(key)) {
-
-                        <ul class="list-group">
-                            <li class="list-group-item list-group-item-success">
-                                <div><span>@repo.name</span>
-                                <span>@repo.language</span></div>
-                            </li>
-
-                        </ul>
-
+        <div class="list-group">
+            @for(repo <- toprepos) {
+            <a href="#" class="list-group-item">
+                @repo.name <span class="badge">@repo.language</span>
+            </a>
             }
-                }
-
         </div>
-
     </div>
-
 </div><!-- /.container -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
