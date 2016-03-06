@@ -33,16 +33,6 @@ GET /svirdi/about                        controllers.Posts.about
 
 GET /svirdi/logout                      controllers.Posts.logout
 
-GET  /svirdi/gitDiscover                controllers.GitDiscover.topProjects
-
-GET /svirdi/projectdetails              controllers.GitDiscover.projectDetails
-
-GET /svirdi/projecttimeseries           controllers.GitDiscover.projectTimeSeries(name: String ?= "scala/scala", month: String ?= "Jan")
-
-GET /svirdi/searchts/:reponame/:month    controllers.GitDiscover.searchts(reponame: String, month: String)
-
-GET /svirdi/userActivity                controllers.GitDiscover.userActivity(prjName: String ?= "scala/scala")
+GET  /svirdi/gitDiscover                controllers.GitDiscover.gitDiscoverDetails
 
 GET /svirdi/gitDiscover/slides          controllers.GitDiscover.slides
-
-GET /svirdi/comments                    controllers.GitDiscover.analyzeComments(prjName: String ?= "scala/scala")

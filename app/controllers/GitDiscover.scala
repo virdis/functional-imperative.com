@@ -29,7 +29,6 @@ object GitDiscover extends Controller {
 
   def projectDetails = Action {
     request =>
-      Logger.info("====")
       Ok(views.html.projectdetails())
   }
 
@@ -63,5 +62,10 @@ object GitDiscover extends Controller {
     request =>
       Ok(views.html.slides())
 
+  }
+
+  def gitDiscoverDetails = Action {
+    request =>
+      Ok(views.html.discoverProjectDetails(List()))
   }
 }
